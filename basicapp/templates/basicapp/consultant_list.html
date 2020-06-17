@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Consultants</h1>
+
+  <table class="table">
+    <thead>
+
+    </thead>
+    <tbody>
+      <tr class="table-secondary">
+        <td class="text-center" colspan="5">Searching, ordering and detalization</td>
+      </tr>
+
+      <thead class="thead-dark">
+        <th scope="col">ID</th>
+        <th scope="col">Last name</th>
+        <th scope="col">First name</th>
+        <th scope="col">Father name</th>
+        <th scope="col">Actions</th>
+      </thead>
+
+      <tr>
+        <!-- Search and ordering -->
+        <form class="form-inline" method="get">
+          <!-- ID -->
+          <td>
+            <input class="form-control mb-2" type="text" name="id" value="{{ request.GET.id }}">
+            <div class="form-check">
+              <input class="form-check-input" id="o_id_no" type="radio" name="o_id" value="0">
+              <label class="form-check-label" for="o_id_no">No</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_id_asc" type="radio" name="o_id" value="1">
+              <label class="form-check-label" for="o_id_asc">Ascending</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_id_desc" type="radio" name="o_id" value="2">
+              <label class="form-check-label" for="o_id_desc">Descending</label>
+            </div>
+          </td>
+
+          <!-- Last name -->
+          <td>
+            <input class="form-control mb-2" type="text" name="ln" value="{{ request.GET.ln }}">
+            <div class="form-check">
+              <input class="form-check-input" id="o_ln_no" type="radio" name="o_ln" value="0">
+              <label class="form-check-label" for="o_ln_no">No</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_ln_asc" type="radio" name="o_ln" value="1">
+              <label class="form-check-label" for="o_ln_asc">Ascending</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_ln_desc" type="radio" name="o_ln" value="2">
+              <label class="form-check-label" for="o_ln_desc">Descending</label>
+            </div>
+          </td>
+
+          <!-- First name -->
+          <td>
+            <input class="form-control mb-2" type="text" name="fn" value="{{ request.GET.fn }}">
+            <div class="form-check">
+              <input class="form-check-input" id="o_fn_no" type="radio" name="o_fn" value="0">
+              <label class="form-check-label" for="o_fn_no">No</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_fn_asc" type="radio" name="o_fn" value="1">
+              <label class="form-check-label" for="o_fn_asc">Ascending</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_fn_desc" type="radio" name="o_fn" value="2">
+              <label class="form-check-label" for="o_fn_desc">Descending</label>
+            </div>
+          </td>
+
+          <!-- Father name -->
+          <td>
+            <input class="form-control mb-2" type="text" name="ftn" value="{{ request.GET.ftn }}">
+            <div class="form-check">
+              <input class="form-check-input" id="o_ftn_no" type="radio" name="o_ftn" value="0">
+              <label class="form-check-label" for="o_ftn_no">No</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_ftn_asc" type="radio" name="o_ftn" value="1">
+              <label class="form-check-label" for="o_ftn_asc">Ascending</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_ftn_desc" type="radio" name="o_ftn" value="2">
+              <label class="form-check-label" for="o_ftn_desc">Descending</label>
+            </div>
+          </td>
+
+          <!-- Action -->
+          <td>
+            <div class="form-check">
+              <input class="form-check-input" id="v_o" type="checkbox" name="v_o" value="1">
+              <label class="form-check-label" for="v_o">Operations</label>
+            </div>
+            <input class="btn btn-primary form-control mt-2" type="submit" value="Apply">
+            <a class="btn btn-warning form-control" href="?id=&ln=&fn=&ftn=&o_id=0&o_ln=0&o_fn=0&o_ftn=0">Reset</a>
+          </td>
+        </form>
+      </tr>
+
+      <tr class="table-secondary">
+        <td class="text-center" colspan="5">Data rows: <strong>{{ consultant_list.count }}</strong></td>
+      </tr>
+
+      <thead class="thead-dark">
+        <th scope="col">ID</th>
+        <th scope="col">Last name</th>
+        <th scope="col">First name</th>
+        <th scope="col">Father name</th>
+        <th scope="col">Actions</th>
+      </thead>
+
+      {% for consultant in consultant_list %}
+        {% include 'basicapp/_consultant.html' %}
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a class="btn btn-primary" href="{% url 'basicapp:consultant-create' %}">Create</a>
+{% endblock %}

@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Operations</h1>
+
+  <table class="table">
+    <thead>
+
+    </thead>
+    <tbody>
+      <tr class="table-secondary">
+        <td class="text-center" colspan="5">Searching, ordering and detalization</td>
+      </tr>
+
+      <thead class="thead-dark">
+        <th scope="col">ID</th>
+        <th scope="col">Client ID</th>
+        <th scope="col">Consultant ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Actions</th>
+      </thead>
+
+      <tr>
+        <!-- Search and ordering -->
+        <form class="form-inline" method="get">
+          <!-- ID -->
+          <td>
+            <input class="form-control mb-2" type="text" name="id" value="{{ request.GET.id }}">
+            <div class="form-check">
+              <input class="form-check-input" id="o_id_no" type="radio" name="o_id" value="0">
+              <label class="form-check-label" for="o_id_no">No</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_id_asc" type="radio" name="o_id" value="1">
+              <label class="form-check-label" for="o_id_asc">Ascending</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_id_desc" type="radio" name="o_id" value="2">
+              <label class="form-check-label" for="o_id_desc">Descending</label>
+            </div>
+          </td>
+
+          <!-- Client ID -->
+          <td>
+            <input class="form-control mb-2" type="text" name="cl" value="{{ request.GET.cl }}">
+            <div class="form-check">
+              <input class="form-check-input" id="o_cl_no" type="radio" name="o_cl" value="0">
+              <label class="form-check-label" for="o_cl_no">No</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_cl_asc" type="radio" name="o_cl" value="1">
+              <label class="form-check-label" for="o_cl_asc">Ascending</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_cl_desc" type="radio" name="o_cl" value="2">
+              <label class="form-check-label" for="o_cl_desc">Descending</label>
+            </div>
+          </td>
+
+          <!-- Consultant ID -->
+          <td>
+            <input class="form-control mb-2" type="text" name="co" value="{{ request.GET.co }}">
+            <div class="form-check">
+              <input class="form-check-input" id="o_co_no" type="radio" name="o_co" value="0">
+              <label class="form-check-label" for="o_co_no">No</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_co_asc" type="radio" name="o_co" value="1">
+              <label class="form-check-label" for="o_co_asc">Ascending</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_co_desc" type="radio" name="o_co" value="2">
+              <label class="form-check-label" for="o_co_desc">Descending</label>
+            </div>
+          </td>
+
+          <!-- Name -->
+          <td>
+            <input class="form-control mb-2" type="text" name="nm" value="{{ request.GET.nm }}">
+            <div class="form-check">
+              <input class="form-check-input" id="o_nm_no" type="radio" name="o_nm" value="0">
+              <label class="form-check-label" for="o_nm_no">No</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_nm_asc" type="radio" name="o_nm" value="1">
+              <label class="form-check-label" for="o_nm_asc">Ascending</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_nm_desc" type="radio" name="o_nm" value="2">
+              <label class="form-check-label" for="o_nm_desc">Descending</label>
+            </div>
+          </td>
+
+          <!-- Action -->
+          <td>
+            <div class="form-check">
+              <input class="form-check-input" id="v_cl" type="checkbox" name="v_cl" value="1">
+              <label class="form-check-label" for="v_cl">Client</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="v_co" type="checkbox" name="v_co" value="1">
+              <label class="form-check-label" for="v_co">Consultant</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="v_ot" type="checkbox" name="v_ot" value="1">
+              <label class="form-check-label" for="v_ot">Operation type</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="v_oc" type="checkbox" name="v_oc" value="1">
+              <label class="form-check-label" for="v_oc">Operation cost</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="v_os" type="checkbox" name="v_os" value="1">
+              <label class="form-check-label" for="v_os">Operation status</label>
+            </div>
+            <input class="btn btn-primary form-control mt-2" type="submit" value="Apply">
+            <a class="btn btn-warning form-control" href="?id=&cl=&co=&nm=&o_id=0&o_cl=0&o_co=0&o_nm=0">Reset</a>
+          </td>
+        </form>
+      </tr>
+
+      <tr class="table-secondary">
+        <td class="text-center" colspan="5">Data rows: <strong>{{ operation_list.count }}</strong></td>
+      </tr>
+
+      <thead class="thead-dark">
+        <th scope="col">ID</th>
+        <th scope="col">Client ID</th>
+        <th scope="col">Consultant ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Actions</th>
+      </thead>
+
+      {% for operation in operation_list %}
+        {% include 'basicapp/_operation.html' %}
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a class="btn btn-primary" href="{% url 'basicapp:operation-create' %}">Create</a>
+{% endblock %}

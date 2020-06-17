@@ -1,0 +1,130 @@
+<tr>
+  <th scope="row">{{ operation.id }}</th>
+  <td>{{ operation.client.id }}</td>
+  <td>{{ operation.consultant.id }}</td>
+  <td>{{ operation.name }}</td>
+  <td>
+    <div class="btn-group" role="group">
+      <a class="btn btn-success form-control" href="{% url 'basicapp:operation-update' pk=operation.pk %}">Update</a>
+      <a class="btn btn-danger form-control" href="{% url 'basicapp:operation-delete' pk=operation.pk %}">Delete</a>
+    </div>
+  </td>
+</tr>
+{% if request.path == '/bank/operations/' %}
+  {% if request.GET.v_cl and operation.client %}
+    <tr class="bg-light">
+      <td colspan="5" class="p-0 text-center">Related client:</td>
+    </tr>
+    <tr>
+      <td colspan="5" class="p-0">
+        <table class="table bg-light m-0">
+          <thead>
+            <th scope="col">ID</th>
+            <th scope="col">Last name</th>
+            <th scope="col">First name</th>
+            <th scope="col">Father name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Actions</th>
+          </thead>
+          <tbody>
+            {% with client=operation.client %}
+              {% include 'basicapp/_client.html' %}
+            {% endwith %}
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  {% endif %}
+
+  {% if request.GET.v_co and operation.consultant %}
+    <tr class="bg-light">
+      <td colspan="5" class="p-0 text-center">Related consultant:</td>
+    </tr>
+    <tr>
+      <td colspan="5" class="p-0">
+        <table class="table bg-light m-0">
+          <thead>
+            <th scope="col">ID</th>
+            <th scope="col">Last name</th>
+            <th scope="col">First name</th>
+            <th scope="col">Father name</th>
+            <th scope="col">Actions</th>
+          </thead>
+          <tbody>
+            {% with consultant=operation.consultant %}
+              {% include 'basicapp/_consultant.html' %}
+            {% endwith %}
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  {% endif %}
+
+  {% if request.GET.v_ot and operation.type %}
+    <tr class="bg-light">
+      <td colspan="5" class="p-0 text-center">Related operation type:</td>
+    </tr>
+    <tr>
+      <td colspan="5" class="p-0">
+        <table class="table bg-light m-0">
+          <thead>
+            <th scope="col">Operation ID</th>
+            <th scope="col">Type</th>
+            <th scope="col">Actions</th>
+          </thead>
+          <tbody>
+            {% with operationtype=operation.type %}
+              {% include 'basicapp/_operationtype.html' %}
+            {% endwith %}
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  {% endif %}
+
+  {% if request.GET.v_oc and operation.cost %}
+    <tr class="bg-light">
+      <td colspan="5" class="p-0 text-center">Related operation cost:</td>
+    </tr>
+    <tr>
+      <td colspan="5" class="p-0">
+        <table class="table bg-light m-0">
+          <thead>
+            <th scope="col">Operation ID</th>
+            <th scope="col">Cost</th>
+            <th scope="col">Actions</th>
+          </thead>
+          <tbody>
+            {% with operationcost=operation.cost %}
+              {% include 'basicapp/_operationcost.html' %}
+            {% endwith %}
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  {% endif %}
+
+  {% if request.GET.v_os and operation.status %}
+    <tr class="bg-light">
+      <td colspan="5" class="p-0 text-center">Related operation status:</td>
+    </tr>
+    <tr>
+      <td colspan="5" class="p-0">
+        <table class="table bg-light m-0">
+          <thead>
+            <th scope="col">Operation ID</th>
+            <th scope="col">Status</th>
+            <th scope="col">Start time</th>
+            <th scope="col">End time</th>
+            <th scope="col">Actions</th>
+          </thead>
+          <tbody>
+            {% with operationstatus=operation.status %}
+              {% include 'basicapp/_operationstatus.html' %}
+            {% endwith %}
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  {% endif %}
+{% endif %}

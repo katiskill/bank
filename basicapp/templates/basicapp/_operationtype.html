@@ -1,0 +1,34 @@
+<tr>
+  <th scope="row">{{ operationtype.operation.id }}</th>
+  <td>{{ operationtype.type }}</td>
+  <td>
+    <div class="btn-group" role="group">
+      <a class="btn btn-success form-control" href="{% url 'basicapp:operation-type-update' pk=operationtype.pk %}">Update</a>
+      <a class="btn btn-danger form-control" href="{% url 'basicapp:operation-type-delete' pk=operationtype.pk %}">Delete</a>
+    </div>
+  </td>
+</tr>
+
+{% if request.path == '/bank/operation_types/' and request.GET.v_o and operationtype.operation %}
+  <tr class="bg-light">
+    <td colspan="6" class="p-0 text-center">Related operation:</td>
+  </tr>
+  <tr>
+    <td colspan="6" class="p-0">
+      <table class="table bg-light m-0">
+        <thead>
+          <th scope="col">ID</th>
+          <th scope="col">Client ID</th>
+          <th scope="col">Consultant ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Actions</th>
+        </thead>
+        <tbody>
+          {% with operation=operationtype.operation %}
+            {% include 'basicapp/_operation.html' %}
+          {% endwith %}
+        </tbody>
+      </table>
+    </td>
+  </tr>
+{% endif %}

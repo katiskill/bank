@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h3>Are you sure you want to delete this operation type?</h3>
+
+  <table class="table">
+    <thead class="thead-dark">
+      <th scope="col">Operation ID</th>
+      <th scope="col">Type</th>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{{ operationtype.operation.id }}</th>
+        <td>{{ operationtype.type }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <form method="post">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-danger" value="Delete">
+    <a class="btn btn-light" href="{% url 'basicapp:operation-type-list' %}">Cancel</a>
+  </form>
+{% endblock %}

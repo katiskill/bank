@@ -1,0 +1,36 @@
+<tr>
+  <th scope="row">{{ consultant.id }}</th>
+  <td>{{ consultant.last_name }}</td>
+  <td>{{ consultant.first_name }}</td>
+  <td>{{ consultant.father_name }}</td>
+  <td>
+    <div class="btn-group" role="group">
+      <a class="btn btn-success form-control" href="{% url 'basicapp:consultant-update' pk=consultant.pk %}">Update</a>
+      <a class="btn btn-danger form-control" href="{% url 'basicapp:consultant-delete' pk=consultant.pk %}">Delete</a>
+    </div>
+  </td>
+</tr>
+
+{% if request.path == '/bank/consultants/' and request.GET.v_o and consultant.operations.count %}
+  <tr class="bg-light">
+    <td colspan="6" class="p-0 text-center">Related operations: <strong>{{ consultant.operations.count }}</strong></td>
+  </tr>
+  <tr>
+    <td colspan="6" class="p-0">
+      <table class="table bg-light m-0">
+        <thead>
+          <th scope="col">ID</th>
+          <th scope="col">Client ID</th>
+          <th scope="col">Consultant ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Actions</th>
+        </thead>
+        <tbody>
+          {% for operation in consultant.operations.all %}
+            {% include 'basicapp/_operation.html' %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </td>
+  </tr>
+{% endif %}

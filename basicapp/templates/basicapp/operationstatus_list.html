@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Operation statuses</h1>
+
+  <table class="table">
+    <thead>
+
+    </thead>
+    <tbody>
+      <tr class="table-secondary">
+        <td class="text-center" colspan="5">Searching, ordering and detalization</td>
+      </tr>
+
+      <thead class="thead-dark">
+        <th scope="col">Operation ID</th>
+        <th scope="col">Status</th>
+        <th scope="col">Start time</th>
+        <th scope="col">End time</th>
+        <th scope="col">Actions</th>
+      </thead>
+
+      <tr>
+        <!-- Search and ordering -->
+        <form class="form-inline" method="get">
+          <!-- Operation ID -->
+          <td>
+            <input class="form-control mb-2" type="text" name="op_id" value="{{ request.GET.op_id }}">
+            <div class="form-check">
+              <input class="form-check-input" id="o_op_id_no" type="radio" name="o_op_id" value="0">
+              <label class="form-check-label" for="o_op_id_no">No</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_op_id_asc" type="radio" name="o_op_id" value="1">
+              <label class="form-check-label" for="o_op_id_asc">Ascending</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_op_id_desc" type="radio" name="o_op_id" value="2">
+              <label class="form-check-label" for="o_op_id_desc">Descending</label>
+            </div>
+          </td>
+
+          <!-- Status -->
+          <td>
+            <input class="form-control mb-2" type="text" name="s" value="{{ request.GET.s }}">
+            <div class="form-check">
+              <input class="form-check-input" id="o_s_no" type="radio" name="o_s" value="0">
+              <label class="form-check-label" for="o_s_no">No</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_s_asc" type="radio" name="o_s" value="1">
+              <label class="form-check-label" for="o_s_asc">Ascending</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_s_desc" type="radio" name="o_s" value="2">
+              <label class="form-check-label" for="o_s_desc">Descending</label>
+            </div>
+          </td>
+
+          <!-- Start time -->
+          <td>
+            <input class="form-control mb-2" type="text" name="st_t" value="{{ request.GET.st_t }}">
+            <div class="form-check">
+              <input class="form-check-input" id="o_st_t_no" type="radio" name="o_st_t" value="0">
+              <label class="form-check-label" for="o_st_t_no">No</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_st_t_asc" type="radio" name="o_st_t" value="1">
+              <label class="form-check-label" for="o_st_t_asc">Ascending</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_st_t_desc" type="radio" name="o_st_t" value="2">
+              <label class="form-check-label" for="o_st_t_desc">Descending</label>
+            </div>
+          </td>
+
+          <!-- End time -->
+          <td>
+            <input class="form-control mb-2" type="text" name="e_t" value="{{ request.GET.e_t }}">
+            <div class="form-check">
+              <input class="form-check-input" id="o_e_t_no" type="radio" name="o_e_t" value="0">
+              <label class="form-check-label" for="o_e_t_no">No</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_e_t_asc" type="radio" name="o_e_t" value="1">
+              <label class="form-check-label" for="o_e_t_asc">Ascending</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_e_t_desc" type="radio" name="o_e_t" value="2">
+              <label class="form-check-label" for="o_e_t_desc">Descending</label>
+            </div>
+          </td>
+
+          <!-- Action -->
+          <td>
+            <div class="form-check">
+              <input class="form-check-input" id="v_o" type="checkbox" name="v_o" value="1">
+              <label class="form-check-label" for="v_o">Operation</label>
+            </div>
+            <input class="btn btn-primary form-control mt-2" type="submit" value="Apply">
+            <a class="btn btn-warning form-control" href="?op_id=&st=&st_t=&e_t=&o_op_id=0&o_tp=0&o_st_t=0&o_e_t=0">Reset</a>
+          </td>
+        </form>
+      </tr>
+
+      <tr class="table-secondary">
+        <td class="text-center" colspan="5">Data rows: <strong>{{ operationstatus_list.count }}</strong></td>
+      </tr>
+
+      <thead class="thead-dark">
+        <th scope="col">Operation ID</th>
+        <th scope="col">Status</th>
+        <th scope="col">Start time</th>
+        <th scope="col">End time</th>
+        <th scope="col">Actions</th>
+      </thead>
+
+      {% for operationstatus in operationstatus_list %}
+        {% include 'basicapp/_operationstatus.html' %}
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a class="btn btn-primary" href="{% url 'basicapp:operation-status-create' %}">Create</a>
+{% endblock %}

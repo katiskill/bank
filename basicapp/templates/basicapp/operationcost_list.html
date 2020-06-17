@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Operation costs</h1>
+
+  <table class="table">
+    <thead>
+
+    </thead>
+    <tbody>
+      <tr class="table-secondary">
+        <td class="text-center" colspan="3">Searching, ordering and detalization</td>
+      </tr>
+
+      <thead class="thead-dark">
+        <th scope="col">Operation ID</th>
+        <th scope="col">Cost</th>
+        <th scope="col">Actions</th>
+      </thead>
+
+      <tr>
+        <!-- Search and ordering -->
+        <form class="form-inline" method="get">
+          <!-- Operation ID -->
+          <td>
+            <input class="form-control mb-2" type="text" name="op_id" value="{{ request.GET.op_id }}">
+            <div class="form-check">
+              <input class="form-check-input" id="o_op_id_no" type="radio" name="o_op_id" value="0">
+              <label class="form-check-label" for="o_op_id_no">No</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_op_id_asc" type="radio" name="o_op_id" value="1">
+              <label class="form-check-label" for="o_op_id_asc">Ascending</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_op_id_desc" type="radio" name="o_op_id" value="2">
+              <label class="form-check-label" for="o_op_id_desc">Descending</label>
+            </div>
+          </td>
+
+          <!-- Cost -->
+          <td>
+            <input class="form-control mb-2" type="text" name="c" value="{{ request.GET.c }}">
+            <div class="form-check">
+              <input class="form-check-input" id="o_c_no" type="radio" name="o_c" value="0">
+              <label class="form-check-label" for="o_c_no">No</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_c_asc" type="radio" name="o_c" value="1">
+              <label class="form-check-label" for="o_c_asc">Ascending</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" id="o_c_desc" type="radio" name="o_c" value="2">
+              <label class="form-check-label" for="o_c_desc">Descending</label>
+            </div>
+          </td>
+
+          <!-- Action -->
+          <td>
+            <div class="form-check">
+              <input class="form-check-input" id="v_o" type="checkbox" name="v_o" value="1">
+              <label class="form-check-label" for="v_o">Operation</label>
+            </div>
+            <input class="btn btn-primary form-control mt-2" type="submit" value="Apply">
+            <a class="btn btn-warning form-control" href="?op_id=&c=&o_op_id=0&o_c=0">Reset</a>
+          </td>
+        </form>
+      </tr>
+
+      <tr class="table-secondary">
+        <td class="text-center" colspan="3">Data rows: <strong>{{ operationcost_list.count }}</strong></td>
+      </tr>
+
+      <thead class="thead-dark">
+        <th scope="col">Operation ID</th>
+        <th scope="col">Cost</th>
+        <th scope="col">Actions</th>
+      </thead>
+
+      {% for operationcost in operationcost_list %}
+        {% include 'basicapp/_operationcost.html' %}
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a class="btn btn-primary" href="{% url 'basicapp:operation-cost-create' %}">Create</a>
+{% endblock %}

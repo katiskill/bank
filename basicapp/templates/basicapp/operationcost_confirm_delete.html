@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h3>Are you sure you want to delete this operation cost?</h3>
+
+  <table class="table">
+    <thead class="thead-dark">
+      <th scope="col">Operation ID</th>
+      <th scope="col">Cost</th>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{{ operationcost.operation.id }}</th>
+        <td>{{ operationcost.cost }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <form method="post">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-danger" value="Delete">
+    <a class="btn btn-light" href="{% url 'basicapp:operation-cost-list' %}">Cancel</a>
+  </form>
+{% endblock %}

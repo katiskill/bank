@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h3>Are you sure you want to delete this operation status?</h3>
+
+  <table class="table">
+    <thead class="thead-dark">
+      <th scope="col">Operation ID</th>
+      <th scope="col">Status</th>
+      <th scope="col">Start time</th>
+      <th scope="col">End time</th>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{{ operationstatus.operation.id }}</th>
+        <td>{{ operationstatus.status }}</td>
+        <td>{{ operationstatus.start_time }}</td>
+        <td>{{ operationstatus.end_time }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <form method="post">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-danger" value="Delete">
+    <a class="btn btn-light" href="{% url 'basicapp:operation-status-list' %}">Cancel</a>
+  </form>
+{% endblock %}
